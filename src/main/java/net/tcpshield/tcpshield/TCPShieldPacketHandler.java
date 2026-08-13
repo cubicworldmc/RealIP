@@ -38,7 +38,7 @@ public class TCPShieldPacketHandler {
      *
      * @param plugin The TCPShield plugin
      */
-    public TCPShieldPacketHandler(TCPShieldPlugin plugin) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, URISyntaxException {
+    public TCPShieldPacketHandler(TCPShieldPlugin plugin) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         this.plugin = plugin;
 
         initValidators();
@@ -51,8 +51,8 @@ public class TCPShieldPacketHandler {
      * @throws IOException              SignatureValidator exception
      * @throws InvalidKeySpecException  SignatureValidator exception
      */
-    private void initValidators() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, URISyntaxException {
-        signatureValidator = new SignatureValidator();
+    private void initValidators() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
+        signatureValidator = new SignatureValidator(plugin.dataDirectory());
 
         switch (plugin.getConfigProvider().getTimestampValidationMode().toLowerCase()) {
             case "system": {

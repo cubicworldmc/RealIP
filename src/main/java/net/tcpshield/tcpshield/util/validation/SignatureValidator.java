@@ -20,24 +20,17 @@ import java.util.stream.Stream;
 public class SignatureValidator {
     private final List<PublicKey> publicKeys;
 
-    public SignatureValidator() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
-        URI uri = Objects.requireNonNull(getClass().getResource("/keys")).toURI();
-
+    public SignatureValidator(Path dataFolder) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         List<PublicKey> keys = new ArrayList<>();
 
-        try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
-            Path path = fileSystem.getPath("/keys");
-            try (Stream<Path> walk = Files.walk(path, 1)) {
-                List<Path> paths = walk.toList();
-                for (Path p : paths) {
-                    if (p.equals(path) || !Files.isRegularFile(p)) continue;
+        Path keysFolder = dataFolder.resolve("keys");
 
-                    byte[] encodedKey = Files.readAllBytes(p);
-                    X509EncodedKeySpec keySpec = new X509EncodedKeySpec(encodedKey);
-
-                    KeyFactory keyFactory = KeyFactory.getInstance("EC");
-                    keys.add(keyFactory.generatePublic(keySpec));
-                }
+        try (Stream<Path> walk = Files.list(keysFolder)) {
+            for (Path p : walk.filter(Files::isRegularFile).toList()) {
+                byte[] encodedKey = Files.readAllBytes(p);
+                X509EncodedKeySpec keySpec = new X509EncodedKeySpec(encodedKey);
+                KeyFactory keyFactory = KeyFactory.getInstance("EC");
+                keys.add(keyFactory.generatePublic(keySpec));
             }
         }
 

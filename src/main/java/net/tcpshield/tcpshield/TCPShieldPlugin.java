@@ -3,6 +3,7 @@ package net.tcpshield.tcpshield;
 import net.tcpshield.tcpshield.provider.ConfigProvider;
 import net.tcpshield.tcpshield.util.Debugger;
 
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 /**
@@ -38,6 +39,7 @@ public interface TCPShieldPlugin {
      */
     Debugger getDebugger();
 
+    Path dataDirectory();
 
     /**
      * Default initialization of TCPShield, called after interface defaults are set

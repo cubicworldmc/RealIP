@@ -83,4 +83,8 @@ public class TCPShieldVelocity implements TCPShieldPlugin {
         return debugger;
     }
 
+    @Override
+    public Path dataDirectory() {
+        return dataFolder;
+    }
 }
