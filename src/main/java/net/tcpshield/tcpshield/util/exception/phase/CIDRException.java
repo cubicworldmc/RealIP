@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.TCPShieldException;
  */
 public class CIDRException extends TCPShieldException {
 
-	public CIDRException(Throwable throwable) {
-		super("An exception occured during the CIDR process", throwable);
-	}
+    public CIDRException(Throwable throwable) {
+        super("An exception occured during the CIDR process", throwable);
+    }
 
 
-	public CIDRException(String message) {
-		super(message);
-	}
+    public CIDRException(String message) {
+        super(message);
+    }
 
 
-	public CIDRException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public CIDRException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public CIDRException() {
-		super();
-	}
+    public CIDRException() {
+        super();
+    }
 
 }

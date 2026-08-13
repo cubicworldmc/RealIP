@@ -5,23 +5,23 @@ package net.tcpshield.tcpshield.util.exception;
  */
 public abstract class TCPShieldException extends RuntimeException {
 
-	public TCPShieldException(Throwable throwable) {
-		super(throwable);
-	}
+    public TCPShieldException(Throwable throwable) {
+        super(throwable);
+    }
 
 
-	public TCPShieldException(String message) {
-		super(message);
-	}
+    public TCPShieldException(String message) {
+        super(message);
+    }
 
 
-	public TCPShieldException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public TCPShieldException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public TCPShieldException() {
-		super();
-	}
+    public TCPShieldException() {
+        super();
+    }
 
 }

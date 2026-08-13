@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.phase.HandshakeException;
  */
 public class PacketManipulationException extends HandshakeException {
 
-	public PacketManipulationException(Throwable throwable) {
-		super(throwable);
-	}
+    public PacketManipulationException(Throwable throwable) {
+        super(throwable);
+    }
 
 
-	public PacketManipulationException(String message) {
-		super(message);
-	}
+    public PacketManipulationException(String message) {
+        super(message);
+    }
 
 
-	public PacketManipulationException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public PacketManipulationException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public PacketManipulationException() {
-		super();
-	}
+    public PacketManipulationException() {
+        super();
+    }
 
 }

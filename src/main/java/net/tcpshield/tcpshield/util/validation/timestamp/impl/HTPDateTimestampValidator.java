@@ -24,57 +24,57 @@ import java.util.stream.Collectors;
  */
 public class HTPDateTimestampValidator extends TimestampValidator {
 
-	private volatile long htpDateOffset = 0;
+    private volatile long htpDateOffset = 0;
 
-	public HTPDateTimestampValidator(TCPShieldPlugin plugin) {
-		super(plugin);
+    public HTPDateTimestampValidator(TCPShieldPlugin plugin) {
+        super(plugin);
 
-		ForkJoinPool.commonPool().execute(() -> {
-			try {
-				updateHTPDateOffset();
-			} catch (Exception e) {
-				throw new InitializationException(e);
-			}
-		});
-	}
+        ForkJoinPool.commonPool().execute(() -> {
+            try {
+                updateHTPDateOffset();
+            } catch (Exception e) {
+                throw new InitializationException(e);
+            }
+        });
+    }
 
 
-	private void updateHTPDateOffset() throws IOException {
-		Socket socket = new Socket("google.com", 80);
+    private void updateHTPDateOffset() throws IOException {
+        Socket socket = new Socket("google.com", 80);
 
-		String payload = "HEAD http://google.com/ HTTP/1.1\r\nHost: google.com\r\nUser-Agent: tcpshield/1.0\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nConnection: close\r\n\r\n";
-		socket.getOutputStream().write(payload.getBytes());
+        String payload = "HEAD http://google.com/ HTTP/1.1\r\nHost: google.com\r\nUser-Agent: tcpshield/1.0\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nConnection: close\r\n\r\n";
+        socket.getOutputStream().write(payload.getBytes());
 
-		long readTime = System.currentTimeMillis(); // assuming server -> client time is negligible
+        long readTime = System.currentTimeMillis(); // assuming server -> client time is negligible
 
-		List<String> response = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))
-				.lines()
-				.collect(Collectors.toList());
+        List<String> response = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))
+                .lines()
+                .collect(Collectors.toList());
 
-		Date serverDate = parseDate(response);
+        Date serverDate = parseDate(response);
 
-		htpDateOffset = Math.round((serverDate.getTime() - readTime) / 1000.0) * 1000; // the HTTP protocol only returns time in seconds; round offset
-	}
+        htpDateOffset = Math.round((serverDate.getTime() - readTime) / 1000.0) * 1000; // the HTTP protocol only returns time in seconds; round offset
+    }
 
-	private Date parseDate(List<String> response) {
-		for (String line : response) {
-			if (!line.startsWith("Date: "))
-				continue;
+    private Date parseDate(List<String> response) {
+        for (String line : response) {
+            if (!line.startsWith("Date: "))
+                continue;
 
-			SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-			try {
-				return sdf.parse(line.substring("Date: ".length()));
-			} catch (ParseException e) {
-				throw new IllegalStateException(e);
-			}
-		}
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+            try {
+                return sdf.parse(line.substring("Date: ".length()));
+            } catch (ParseException e) {
+                throw new IllegalStateException(e);
+            }
+        }
 
-		throw new IllegalArgumentException("no date line found - response: " + response);
-	}
+        throw new IllegalArgumentException("no date line found - response: " + response);
+    }
 
-	@Override
-	public long getUnixTime() {
-		return (System.currentTimeMillis() + htpDateOffset) / 1000;
-	}
+    @Override
+    public long getUnixTime() {
+        return (System.currentTimeMillis() + htpDateOffset) / 1000;
+    }
 
 }

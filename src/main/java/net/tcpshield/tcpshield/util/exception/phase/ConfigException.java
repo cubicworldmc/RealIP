@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.TCPShieldException;
  */
 public class ConfigException extends TCPShieldException {
 
-	public ConfigException(Throwable throwable) {
-		super("An exception occured during the config process", throwable);
-	}
+    public ConfigException(Throwable throwable) {
+        super("An exception occured during the config process", throwable);
+    }
 
 
-	public ConfigException(String message) {
-		super(message);
-	}
+    public ConfigException(String message) {
+        super(message);
+    }
 
 
-	public ConfigException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public ConfigException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public ConfigException() {
-		super();
-	}
+    public ConfigException() {
+        super();
+    }
 
 }

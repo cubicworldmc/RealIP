@@ -7,8 +7,8 @@ import net.tcpshield.tcpshield.util.exception.phase.HandshakeException;
  */
 public class SignatureValidationException extends HandshakeException {
 
-	public SignatureValidationException() {
-		super();
-	}
+    public SignatureValidationException() {
+        super();
+    }
 
 }

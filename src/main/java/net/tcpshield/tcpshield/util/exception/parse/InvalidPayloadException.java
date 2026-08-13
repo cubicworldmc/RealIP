@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.phase.HandshakeException;
  */
 public class InvalidPayloadException extends HandshakeException {
 
-	public InvalidPayloadException(Throwable throwable) {
-		super(throwable);
-	}
+    public InvalidPayloadException(Throwable throwable) {
+        super(throwable);
+    }
 
 
-	public InvalidPayloadException(String message) {
-		super(message);
-	}
+    public InvalidPayloadException(String message) {
+        super(message);
+    }
 
 
-	public InvalidPayloadException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public InvalidPayloadException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public InvalidPayloadException() {
-		super();
-	}
+    public InvalidPayloadException() {
+        super();
+    }
 
 }

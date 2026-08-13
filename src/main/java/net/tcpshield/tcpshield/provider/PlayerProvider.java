@@ -9,19 +9,19 @@ import java.net.InetSocketAddress;
  */
 public interface PlayerProvider {
 
-	String getUUID();
+    String getUUID();
 
-	String getName();
+    String getName();
 
-	String getIP();
+    String getIP();
 
-	/**
-	 * Sets the players IP address directly to the server
-	 *
-	 * @param ip The new IP address to pass to the proxy/server
-	 */
-	void setIP(InetSocketAddress ip) throws PlayerManipulationException;
+    /**
+     * Sets the players IP address directly to the server
+     *
+     * @param ip The new IP address to pass to the proxy/server
+     */
+    void setIP(InetSocketAddress ip) throws PlayerManipulationException;
 
-	void disconnect();
+    void disconnect();
 
 }

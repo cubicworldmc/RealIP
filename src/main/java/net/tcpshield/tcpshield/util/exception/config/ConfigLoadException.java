@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.phase.ConfigException;
  */
 public class ConfigLoadException extends ConfigException {
 
-	public ConfigLoadException(Throwable throwable) {
-		super(throwable);
-	}
+    public ConfigLoadException(Throwable throwable) {
+        super(throwable);
+    }
 
 
-	public ConfigLoadException(String message) {
-		super(message);
-	}
+    public ConfigLoadException(String message) {
+        super(message);
+    }
 
 
-	public ConfigLoadException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public ConfigLoadException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public ConfigLoadException() {
-		super();
-	}
+    public ConfigLoadException() {
+        super();
+    }
 
 }

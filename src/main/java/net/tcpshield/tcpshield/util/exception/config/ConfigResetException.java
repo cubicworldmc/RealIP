@@ -7,23 +7,23 @@ import net.tcpshield.tcpshield.util.exception.phase.ConfigException;
  */
 public class ConfigResetException extends ConfigException {
 
-	public ConfigResetException(Throwable throwable) {
-		super(throwable);
-	}
+    public ConfigResetException(Throwable throwable) {
+        super(throwable);
+    }
 
 
-	public ConfigResetException(String message) {
-		super(message);
-	}
+    public ConfigResetException(String message) {
+        super(message);
+    }
 
 
-	public ConfigResetException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    public ConfigResetException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 
 
-	public ConfigResetException() {
-		super();
-	}
+    public ConfigResetException() {
+        super();
+    }
 
 }

@@ -21,66 +21,66 @@ import java.util.logging.Logger;
  * The entry point for Velocity servers
  */
 @Plugin(
-	id = "tcpshield",
-	name = "TCPShield",
-	description = "TCPShield IP parsing capabilities for Velocity"
+        id = "tcpshield",
+        name = "TCPShield",
+        description = "TCPShield IP parsing capabilities for Velocity"
 )
 public class TCPShieldVelocity implements TCPShieldPlugin {
 
-	private final ProxyServer server;
-	private final Logger logger;
-	private final Path dataFolder;
+    private final ProxyServer server;
+    private final Logger logger;
+    private final Path dataFolder;
 
-	private ConfigProvider configProvider;
-	private TCPShieldPacketHandler packetHandler;
-	private Debugger debugger;
+    private ConfigProvider configProvider;
+    private TCPShieldPacketHandler packetHandler;
+    private Debugger debugger;
 
-	@Inject
-	public TCPShieldVelocity(ProxyServer server, Logger logger, @DataDirectory Path dataFolder) {
-		this.server = server;
-		this.logger = logger;
-		this.dataFolder = dataFolder;
-	}
+    @Inject
+    public TCPShieldVelocity(ProxyServer server, Logger logger, @DataDirectory Path dataFolder) {
+        this.server = server;
+        this.logger = logger;
+        this.dataFolder = dataFolder;
+    }
 
-	@Subscribe
-	public void onProxyInitialization(ProxyInitializeEvent e) {
-		try {
-			configProvider = new VelocityConfig(dataFolder.toFile(), this);
-			debugger = Debugger.createDebugger(this);
-			packetHandler = new TCPShieldPacketHandler(this);
+    @Subscribe
+    public void onProxyInitialization(ProxyInitializeEvent e) {
+        try {
+            configProvider = new VelocityConfig(dataFolder.toFile(), this);
+            debugger = Debugger.createDebugger(this);
+            packetHandler = new TCPShieldPacketHandler(this);
 
-			server.getEventManager().register(this, new VelocityHandshakeHandler(this));
+            server.getEventManager().register(this, new VelocityHandshakeHandler(this));
 
-			GeyserUtils.initGeyser(this, configProvider);
+            GeyserUtils.initGeyser(this, configProvider);
 
-			initialization();
-		} catch (Exception exception) {
-			throw new InitializationException(exception);
-		}
-	}
+            initialization();
+        } catch (Exception exception) {
+            throw new InitializationException(exception);
+        }
+    }
 
-	/*
-	 * The provider's base methods
-	 */
+    /*
+     * The provider's base methods
+     */
 
-	@Override
-	public ConfigProvider getConfigProvider() {
-		return configProvider;
-	}
+    @Override
+    public ConfigProvider getConfigProvider() {
+        return configProvider;
+    }
 
-	@Override
-	public Logger getLogger() {
-		return logger;
-	}
+    @Override
+    public Logger getLogger() {
+        return logger;
+    }
 
-	@Override
-	public TCPShieldPacketHandler getPacketHandler() {
-		return packetHandler;
-	}
+    @Override
+    public TCPShieldPacketHandler getPacketHandler() {
+        return packetHandler;
+    }
 
-	@Override
-	public Debugger getDebugger() {
-		return debugger;
-	}
+    @Override
+    public Debugger getDebugger() {
+        return debugger;
+    }
 
 }
